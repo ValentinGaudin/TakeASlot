@@ -15,20 +15,6 @@
     padding: 0px;
     margin: 0px;
     box-sizing: border-box;
-    font-family: 'Modern No. 20';
-}
-
-.product_container {
-    align-self: stretch;
-}
-
-.active {
-    background-color: $primary-color;
-    color: white;
-}
-
-.paginationBtn {
-    width: 40px;
 }
 
 .card-zoom {
@@ -49,15 +35,4 @@
 
 .card-zoom:hover .card-zoom-text {
     @apply scale-100;
-}
-
-.borderI {
-    border-bottom: 1px solid $secondary-color;
-    width: 80%;
-    margin: auto;
-}
-
-.popup{
-    opacity: 0;
-    transition: .5s ease-out;
 }
