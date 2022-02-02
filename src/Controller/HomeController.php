@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/calendar", name="home")
      */
     public function index(): Response
     {
