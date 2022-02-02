@@ -1518,7 +1518,7 @@ anymatch@^3.0.0, anymatch@~3.1.2:
 
 aos@^2.3.4:
   version "2.3.4"
-  resolved "https://registry.npmjs.org/aos/-/aos-2.3.4.tgz"
+  resolved "https://registry.yarnpkg.com/aos/-/aos-2.3.4.tgz#eb1c29f5c1806a197cf6323080747547edd3db8e"
   integrity sha512-zh/ahtR2yME4I51z8IttIt4lC1Nw0ktsFtmeDzID1m9naJnWXhCoARaCgNOGXb5CLy3zm+wqmRAEgMYB5E2HUw==
   dependencies:
     classlist-polyfill "^1.0.3"
@@ -3336,6 +3336,16 @@ fsevents@~2.3.2:
   version "2.3.2"
   resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
   integrity sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==
+
+fullcalendar-scheduler@^5.10.1:
+  version "5.10.1"
+  resolved "https://registry.npmjs.org/fullcalendar-scheduler/-/fullcalendar-scheduler-5.10.1.tgz"
+  integrity sha512-rwMWcgV1oc58AOZ93NczdHCxwF0OLmOm4RSLqRzy6rcnB8XId9hGUbxhFgih26NXSJ+439IPi6Q3yhbqbru5sQ==
+
+fullcalendar@^5.10.1:
+  version "5.10.1"
+  resolved "https://registry.npmjs.org/fullcalendar/-/fullcalendar-5.10.1.tgz"
+  integrity sha512-0jgDxiWRuC36MzAUK3+Equmu4R0+vAPEtttsXLX9GNNDUHEZ5HjcH+dUtWut4vlJtxGJgVZ+eZ76/7qhcu+RMA==
 
 function-bind@^1.1.1:
   version "1.1.1"

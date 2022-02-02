@@ -4,11 +4,8 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="theme-color" content="#e5e7eb"/>
-		<meta name="description" content="
-													PilePoil est là pour vous aider à trouver les meubles qui correspondent aux dimensions de votre logement et à votre budget.
-													PilePoil est une solution applicative basée sur le recoupement de données en source ouverte (dimensions, prix, caractéristiques techniques) et de données générées par l’utilisateur.
-													En clair, vous nous expliquez ce que vous cherchez, on le trouve pour vous. Gratuitement."/>
 		<link rel="icon" type="image/png" href="{{ asset('build/images/favico.ico') }}"/>
+
 		<title>
 			{% block title %}Take A Slot
 			{% endblock %}
@@ -20,7 +17,7 @@
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
 	</head>
-	<body class="bg-gray-200 selection:bg-primary-light">
+	<body class="bg-gray-200">
 		<header class="sticky top-0 z-50 bg-gray-200" id="header"> {% block header %}{% endblock %}
 			</header>
 			{% block nav %}{% endblock %}
