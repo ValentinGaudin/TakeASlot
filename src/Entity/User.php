@@ -40,7 +40,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="datetime")
      */
-    private \DateTimeInterface $createdAt;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="integer")

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Coach index{% endblock %}
+
+{% block body %}
+    <h1>Coach index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Description</th>
+                <th>Telephone</th>
+                <th>Roles</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for coach in coaches %}
+            <tr>
+                <td>{{ coach.id }}</td>
+                <td>{{ coach.firstName }}</td>
+                <td>{{ coach.lastName }}</td>
+                <td>{{ coach.description }}</td>
+                <td>{{ coach.telephone }}</td>
+                <td>{{ coach.roles ? coach.roles|json_encode : '' }}</td>
+                <td>
+                    <a href="{{ path('coach_show', {'id': coach.id}) }}">show</a>
+                    <a href="{{ path('coach_edit', {'id': coach.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('coach_new') }}">Create new</a>
+{% endblock %}
