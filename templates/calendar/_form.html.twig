@@ -1,0 +1,102 @@
+{{ form_start(form) }}
+<div class="relative flex flex-col p-2 mx-auto bg-white z-10 justify-center items-center rounded-3xl filter drop-shadow-2xl w-10/12">
+
+	<div class="relative my-2 p-5 w-full">
+		{{ form_label(form.title, "Title : ", {
+            label_attr: {
+                class: "w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none"
+            }
+        }) }}
+		{{ form_widget(form.title, {
+                attr: {
+                    class: "w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none",
+                    placeholder: "Alain",
+                    }
+                }) }}
+	</div>
+	<div class="relative my-2 p-5 ">
+		{{ form_label(form.description, "Description : ", {
+            label_attr: {
+                class: "w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none"
+            }
+        }) }}
+		{{ form_widget(form.description, {
+                attr: {
+                    class: "w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none",
+                    placeholder: "Alain",
+                    }
+                }) }}
+	</div>
+	<div class="relative my-2 p-5">
+		{{ form_label(form.start, "Start : ", {
+            label_attr: {
+                class: "w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none"
+            }
+        }) }}
+		{{ form_widget(form.start, {
+                attr: {
+                    class: "w-full h-4 sm:h-9  outline-none",
+                    placeholder: "Alain",
+                    }
+                }) }}
+	</div>
+	<div class="relative my-2 p-5">
+		{{ form_label(form.end, "End : ", {
+            label_attr: {
+                class: "w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none"
+            }
+        }) }}
+		{{ form_widget(form.end, {
+                attr: {
+                    class: "w-full h-4 sm:h-9 outline-none",
+                    placeholder: "Alain",
+                    }
+                }) }}
+	</div>
+	<div class="relative my-2 p-5 w-full">
+		{{ form_label(form.background_color, "Background Color : ", {
+            label_attr: {
+                class: "w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none"
+            }
+        }) }}
+		{{ form_widget(form.background_color, {
+                attr: {
+                    class: "w-full h-8 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none",
+                    placeholder: "Alain",
+                    }
+                }) }}
+	</div>
+	<div class="relative my-2 p-5 w-full">
+		{{ form_label(form.border_color, "Border Color : ", {
+            label_attr: {
+                class: "w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none"
+            }
+        }) }}
+		{{ form_widget(form.border_color, {
+                attr: {
+                    class: "w-full h-8 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none",
+                    placeholder: "Alain",
+                    }
+                }) }}
+	</div>
+	<div class="relative my-2 p-5 w-full">
+		{{ form_label(form.text_color, "Text Color : ", {
+            label_attr: {
+                class: "w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none"
+            }
+        }) }}
+		{{ form_widget(form.text_color, {
+                attr: {
+                    class: "w-full h-8 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none",
+                    placeholder: "Alain",
+                    }
+                }) }}
+	</div>
+	<div class="flex flex-col justify-center items-center mt-2 sm:mt-5">
+		<button class="btn">{{ button_label|default('Save') }}</button>
+		<button type="button" onclick="history.back()" class="bg-primary-light hover:bg-primary-dark text-gray-100 rounded-mdh-8 sm:h-auto sm:rounded-lg w-20 sm:w-52 p-1 text-xs sm:text-md sm:p-3 ">
+			Back
+		</button>
+	</div>
+</div>
+{{ form_end(form) }}

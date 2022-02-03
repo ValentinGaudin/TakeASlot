@@ -1,12 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{ parent() }}
-	- Edit
+	{{ parent() }} - New Slot
 {% endblock %}
 
 {% block body %}
 
-	{{ include('activity/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('calendar/_form.html.twig') }}
 
 {% endblock %}

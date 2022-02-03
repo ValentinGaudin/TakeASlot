@@ -42,6 +42,11 @@ class Coach
      */
     private array $roles = [];
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Activity::class, inversedBy="coaches")
+     */
+    private $activity;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -110,6 +115,18 @@ class Coach
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getActivity(): ?Activity
+    {
+        return $this->activity;
+    }
+
+    public function setActivity(?Activity $activity): self
+    {
+        $this->activity = $activity;
 
         return $this;
     }

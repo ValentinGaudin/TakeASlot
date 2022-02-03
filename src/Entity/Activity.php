@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ActivityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Doctrine\ORM\Mapping as ORM;
@@ -31,7 +33,7 @@ class Activity
     private string $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      * @var string
      */
     private ?string $image = null;
@@ -71,6 +73,26 @@ class Activity
      * @ORM\Column(type="string", length=255)
      */
     private string $town;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Coach::class, mappedBy="activity")
+     */
+    private $coaches;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Calendar::class, inversedBy="activities")
+     */
+    private $activityRDV;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="activities")
+     */
+    private $owner;
+
+    public function __construct()
+    {
+        $this->coaches = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -203,6 +225,60 @@ class Activity
     public function setTown(string $town): self
     {
         $this->town = $town;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Coach[]
+     */
+    public function getCoaches(): Collection
+    {
+        return $this->coaches;
+    }
+
+    public function addCoach(Coach $coach): self
+    {
+        if (!$this->coaches->contains($coach)) {
+            $this->coaches[] = $coach;
+            $coach->setActivity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCoach(Coach $coach): self
+    {
+        if ($this->coaches->removeElement($coach)) {
+            // set the owning side to null (unless already changed)
+            if ($coach->getActivity() === $this) {
+                $coach->setActivity(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getActivityRDV(): ?Calendar
+    {
+        return $this->activityRDV;
+    }
+
+    public function setActivityRDV(?Calendar $activityRDV): self
+    {
+        $this->activityRDV = $activityRDV;
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
 
         return $this;
     }

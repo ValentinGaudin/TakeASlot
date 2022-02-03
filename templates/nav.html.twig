@@ -25,11 +25,11 @@
 		<div id="sideMenuHideOnMobile" class="bg-white font-semibold z-10 rounded-bl-md flex absolute top-0 right-0 transition-all duration-500 transform translate-x-0 w-1/2 md:w-auto px-3 md:px-0 flex-col md:flex-row -translate-y-full md:translate-y-0 md:mt-1 md:items-center md:mx-1 md:uppercase">
 			<a href="{{ path('activity_index') }}" class="mx-0 sm:mx-2 my-2 border-b-2 border-transparent hover:border-primary-dark hover:text-primary-dark transition-all duration-500 py-1 sm:p-0">Activities</a>
 			{# <a href="#" class="mx-0 sm:mx-2 my-2 border-b-2 border-transparent hover:border-primary-dark hover:text-primary-dark transition-all duration-500 py-1 sm:p-0">Resource</a> #}
-			<a href="#" class="mx-0 sm:mx-2 my-2 border-b-2 border-transparent hover:border-primary-dark hover:text-primary-dark transition-all duration-500 py-1 sm:p-0">About</a>
+			<a href="{{ path('app_profil') }}" class="mx-0 sm:mx-2 my-2 border-b-2 border-transparent hover:border-primary-dark hover:text-primary-dark transition-all duration-500 py-1 sm:p-0">Profil</a>
 			{% if app.user %}
-				<a href="{{ path('app_logout') }}" class="mx-0 sm:mx-2 my-2 border-b-2 border-transparent hover:border-primary-dark hover:text-primary-dark transition-all duration-500 py-1 sm:p-0">LOGOUT</a>
+				<a href="{{ path('app_logout') }}" class="mx-0 sm:mx-2 my-2 border-b-2 border-transparent hover:border-primary-dark hover:text-primary-dark transition-all duration-500 py-1 sm:p-0">Logout</a>
 			{% else %}
-				<a href="{{ path('login') }}" class="mx-0 sm:mx-2 my-2 border-b-2 border-transparent hover:border-primary-dark hover:text-primary-dark transition-all duration-500 py-1 sm:p-0">LOGIN</a>
+				<a href="{{ path('login') }}" class="mx-0 sm:mx-2 my-2 border-b-2 border-transparent hover:border-primary-dark hover:text-primary-dark transition-all duration-500 py-1 sm:p-0">Login</a>
 			{% endif %}
 		</div>
 
