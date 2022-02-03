@@ -20,7 +20,12 @@
 	<body class="bg-gray-200">
 		<header class="sticky top-0 z-50 bg-gray-200" id="header"> {% block header %}{% endblock %}
 			</header>
-			{% block nav %}{% endblock %}
-			{% block body %}{% endblock %}
-		</body>
-	</html>
+			{% block nav %}
+				{% include "nav.html.twig" %}
+			{% endblock %}
+
+			<div class="rounded-xl bg-no-repeat bg-fixed bg-cover bg-center w-full bg-[url('/assets/images/index.png')] "> {% block body %}{% endblock %}
+				</div>
+
+			</body>
+		</html>

@@ -1,4 +1,95 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{% block body %}
+
+	{{ form_start(form) }}
+	<div class="font-sans tracking-wide bg-gray-500 bg-opacity-60 backdrop-filter backdrop-blur-md w-full min-h-screen top-20">
+		<div class="p-2 bg-white z-10 justify-center items-center mx-10 sm:m-auto h-1/3 sm:w-1/2 sm:h-1/3 md:w-1/2 md:h-1/3 lg:w-1/3 lg:h-1/3 rounded-3xl filter drop-shadow-2xl relative top-20 -left-52">
+
+			<div class="ml-2 mr-2 mt-3 sm:mx-6 sm:mt-8">
+				<h1 class="text-xl text-gray-600 sm:text-md font-bold">
+					Manage your favorite activities  with us!
+				</h1>
+			</div>
+			<div class="mx-2 mt-4 sm:mx-6 sm:mt-8">
+				<div class="relative my-8 p-5">
+					{{ form_label(form.name, "Your Activity name : ", {
+            label_attr: {
+                class: "w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none"
+            }
+        }) }}
+					{{ form_widget(form.name, {
+                attr: {
+                    class: "w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none",
+                    placeholder: "Alain",
+                    }
+                }) }}
+				</div>
+				<div class="relative my-8 p-5">
+					{{ form_label(form.description, "Description : ", {
+            label_attr: {
+                class: "w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none mt-4"
+            }
+        }) }}
+					{{ form_widget(form.description, {
+                attr: {
+                    class: "w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none",
+                    placeholder: "Here i ...",
+                    }
+                }) }}
+				</div>
+
+				<div class="relative my-8 p-5">
+					{{ form_row(form.posterFile) }}
+                    <div class="hidden">
+                    </div>
+				</div>
+				<div class="relative my-8 p-5">
+					{{ form_label(form.road, "Road : ", {
+            label_attr: {
+                class: "w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none mt-4"
+            }
+        }) }}
+					{{ form_widget(form.road, {
+                attr: {
+                    class: "w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none",
+                    placeholder: "fakebook road ",
+                    }
+                }) }}
+				</div>
+
+				<div class="relative my-8 p-5">
+					{{ form_label(form.zip, "Number : ", {
+            label_attr: {
+                class: "w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none mt-4"
+            }
+        }) }}
+					{{ form_widget(form.zip, {
+                attr: {
+                    class: "w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none",
+                    placeholder: "781",
+                    }
+                }) }}
+				</div>
+
+				<div class="relative my-8 p-5">
+					{{ form_label(form.town, "Town : ", {
+            label_attr: {
+                class: "w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none mt-4"
+            }
+        }) }}
+					{{ form_widget(form.town, {
+                attr: {
+                    class: "w-full h-4 sm:h-9 border-b-2 border-gray-300 focus:border-blue-300 outline-none",
+                    placeholder: "Town",
+                    }
+                }) }}
+				</div>
+				<div class="justify-center items-center mt-2 sm:mt-5 flex">
+					<button type="submit" class=" bg-primary-light text-gray-100 rounded-mdh-8 sm:h-auto sm:rounded-lg w-20 sm:w-52 p-1 text-xs sm:text-md sm:p-3 ">
+						{{ button_label|default('Sauvegarder') }}
+					</button>
+				</div>
+			</div>
+		</div>
+		{{ form_end(form) }}
+
+	{% endblock %}

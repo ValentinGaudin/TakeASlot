@@ -5,11 +5,14 @@ namespace App\Controller;
 use App\Entity\Activity;
 use App\Form\ActivityType;
 use App\Repository\ActivityRepository;
+use App\Service\ControlUpload;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use DateTime;
 
 /**
  * @Route("/activity")
@@ -29,13 +32,33 @@ class ActivityController extends AbstractController
     /**
      * @Route("/new", name="activity_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, ControlUpload $controlUpload): Response
     {
         $activity = new Activity();
         $form = $this->createForm(ActivityType::class, $activity);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $activity->setUpdateAt(new \DateTime('now'));
+            if ($activity->getCreatedAt() === null) {
+                $activity->setCreatedAt(new \DateTime('now'));
+            }
+            if (null !== $activity->getPosterFile()) {
+                $extension = $controlUpload->extensionValidity($activity);
+            }
+            $authorizedTypes = ['image', 'video', 'pdf'];
+            if (in_array($extension, $authorizedTypes) || $extension === "") {
+                $activity->setType($extension);
+                $entityManager->persist($activity);
+
+                $entityManager->flush();
+                return $this->redirectToRoute('activity_index', [], Response::HTTP_SEE_OTHER);
+            } else {
+                if ($extension) {
+                    $form->addError(new FormError($extension));
+                }
+            }
             $entityManager->persist($activity);
             $entityManager->flush();
 
