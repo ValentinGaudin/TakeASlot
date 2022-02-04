@@ -45,7 +45,7 @@ class Coach
     /**
      * @ORM\ManyToOne(targetEntity=Activity::class, inversedBy="coaches")
      */
-    private $activity;
+    private Activity $activity;
 
     public function getId(): ?int
     {

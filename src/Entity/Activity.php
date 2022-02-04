@@ -89,9 +89,11 @@ class Activity
      */
     private $owner;
 
+
     public function __construct()
     {
         $this->coaches = new ArrayCollection();
+        $this->appointments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -282,4 +284,13 @@ class Activity
 
         return $this;
     }
+
+    /**
+     * @return Collection|Appointment[]
+     */
+    public function getAppointments(): Collection
+    {
+        return $this->appointments;
+    }
+
 }

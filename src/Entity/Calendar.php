@@ -6,6 +6,7 @@ use App\Repository\CalendarRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=CalendarRepository::class)
@@ -17,12 +18,12 @@ class Calendar
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private string $title;
 
     /**
      * @ORM\Column(type="datetime")
@@ -37,32 +38,32 @@ class Calendar
     /**
      * @ORM\Column(type="text")
      */
-    private $description;
+    private string $description;
 
     /**
      * @ORM\Column(type="string", length=7)
      */
-    private $background_color;
+    private string $background_color;
 
     /**
      * @ORM\Column(type="string", length=7)
      */
-    private $border_color;
+    private string $border_color;
 
     /**
      * @ORM\Column(type="string", length=7)
      */
-    private $text_color;
+    private string $text_color;
 
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="userRDV")
      */
-    private $users;
+    private Collection $users;
 
     /**
      * @ORM\OneToMany(targetEntity=Activity::class, mappedBy="activityRDV")
      */
-    private $activities;
+    private Collection $activities;
 
     public function __construct()
     {
