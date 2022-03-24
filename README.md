@@ -1,8 +1,4 @@
-# Project 3 - Starter Kit - Symfony 5.*
-
-## Presentation
-
-This starter kit is here to easily start a repository for Wild Code School students.
+# Project TakeASlot - Starter Kit - Symfony 5.*
 
 It's symfony website-skeleton project with some additional library (webpack, fixtures) and tools to validate code standards.
 
@@ -18,8 +14,6 @@ It's symfony website-skeleton project with some additional library (webpack, fix
 
     * Tasks to check if vendor, .idea, env.local are not versionned,
     * PHP_CodeSniffer, PHPStan and PHPmd with same configuration as GrumPHP.
- 
-## Getting Started for Students
 
 ### Prerequisites
 
@@ -75,41 +69,4 @@ Some files are used to manage automatic deployments (using tools as Caprover, Do
 * [Sass-Lint](https://github.com/sasstools/sass-lint)
 
 
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-
-## Authors
-
-Wild Code School trainers team
-
-## License
-
-MIT License
-
-Copyright (c) 2019 aurelien@wildcodeschool.fr
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-## Acknowledgments
 
