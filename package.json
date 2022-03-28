@@ -26,9 +26,9 @@
     "webpack-notifier": "^1.6.0"
   },
   "name": "pilepoil",
-  "author": "Valentin Gaudin, Jonathan Permarole, Jérémy Gautrais, Mathieu Chabot",
-  "description": "Vous cherchez un meuble qui rentre parfaitement dans vos critères ? N'hésitez plus Pile poil le fais pour vous ! ",
-  "homepage": "https://github.com/WildCodeSchool/lyon-202109-php-project3-almaxe",
+  "author": "Valentin Gaudin",
+  "description": "",
+  "homepage": "",
   "version": "1.0.0",
   "license": "UNLICENSED",
   "main": "./templates/base.html.twig",
@@ -40,8 +40,13 @@
     "build": "encore production --progress"
   },
   "dependencies": {
+    "@fullcalendar/core": "^5.10.1",
+    "@fullcalendar/daygrid": "^5.10.1",
+    "@fullcalendar/interaction": "^5.10.1",
+    "@fullcalendar/timegrid": "^5.10.1",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "aos": "^2.3.4",
+    "bootstrap-icons": "^1.8.1",
     "fullcalendar": "^5.10.1",
     "fullcalendar-scheduler": "^5.10.1"
   }

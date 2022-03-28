@@ -151,20 +151,14 @@
     "gitonomy/gitlib": {
         "version": "v1.2.3"
     },
-    "jakub-onderka/php-console-color": {
-        "version": "v0.2"
-    },
     "jms/metadata": {
         "version": "2.6.1"
     },
     "laminas/laminas-code": {
         "version": "4.2.2"
     },
-    "laminas/laminas-eventmanager": {
-        "version": "3.3.1"
-    },
-    "laminas/laminas-zendframework-bridge": {
-        "version": "1.2.0"
+    "laravel/serializable-closure": {
+        "version": "v1.1.1"
     },
     "monolog/monolog": {
         "version": "2.2.0"
@@ -174,9 +168,6 @@
     },
     "ondram/ci-detector": {
         "version": "3.5.1"
-    },
-    "opis/closure": {
-        "version": "3.6.2"
     },
     "pdepend/pdepend": {
         "version": "2.9.1"
@@ -315,9 +306,6 @@
         "files": [
             "config/packages/dev/debug.yaml"
         ]
-    },
-    "symfony/debug-pack": {
-        "version": "v1.0.9"
     },
     "symfony/dependency-injection": {
         "version": "v5.2.7"
@@ -459,9 +447,6 @@
     "symfony/options-resolver": {
         "version": "v5.2.4"
     },
-    "symfony/orm-pack": {
-        "version": "v2.1.0"
-    },
     "symfony/password-hasher": {
         "version": "v5.3.8"
     },
@@ -509,9 +494,6 @@
     },
     "symfony/process": {
         "version": "v5.2.7"
-    },
-    "symfony/profiler-pack": {
-        "version": "v1.0.5"
     },
     "symfony/property-access": {
         "version": "v5.2.4"
@@ -566,9 +548,6 @@
     "symfony/serializer": {
         "version": "v5.2.7"
     },
-    "symfony/serializer-pack": {
-        "version": "v1.0.4"
-    },
     "symfony/service-contracts": {
         "version": "v2.4.0"
     },
@@ -577,9 +556,6 @@
     },
     "symfony/string": {
         "version": "v5.2.6"
-    },
-    "symfony/test-pack": {
-        "version": "v1.0.7"
     },
     "symfony/translation": {
         "version": "3.3",
@@ -613,9 +589,6 @@
             "config/packages/twig.yaml",
             "templates/base.html.twig"
         ]
-    },
-    "symfony/twig-pack": {
-        "version": "v1.0.1"
     },
     "symfony/uid": {
         "version": "v5.3.13"

@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Calendar;
+use App\Entity\Slot;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Calendar|null find($id, $lockMode = null, $lockVersion = null)
- * @method Calendar|null findOneBy(array $criteria, array $orderBy = null)
- * @method Calendar[]    findAll()
- * @method Calendar[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Slot|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Slot|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Slot[]    findAll()
+ * @method Slot[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CalendarRepository extends ServiceEntityRepository
+class SlotRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Calendar::class);
+        parent::__construct($registry, Slot::class);
     }
 
     // /**
-    //  * @return Calendar[] Returns an array of Calendar objects
+    //  * @return Slot[] Returns an array of Slot objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class CalendarRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Calendar
+    public function findOneBySomeField($value): ?Slot
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')

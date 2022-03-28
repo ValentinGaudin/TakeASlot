@@ -60,18 +60,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $lastName;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Calendar::class, inversedBy="users")
+     * @ORM\ManyToMany(targetEntity=Slot::class, inversedBy="userAppointment")
      */
-    private $userRDV;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Activity::class, mappedBy="owner")
-     */
-    private $activities;
+    private $appointments;
 
     public function __construct()
     {
-        $this->activities = new ArrayCollection();
         $this->appointments = new ArrayCollection();
     }
 
@@ -212,46 +206,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getUserRDV(): ?Calendar
-    {
-        return $this->userRDV;
-    }
-
-    public function setUserRDV(?Calendar $userRDV): self
-    {
-        $this->userRDV = $userRDV;
-
-        return $this;
-    }
-
     /**
-     * @return Collection|Activity[]
+     * @return Collection<int, Slot>
      */
-    public function getActivities(): Collection
+    public function getAppointments(): Collection
     {
-        return $this->activities;
+        return $this->appointments;
     }
 
-    public function addActivity(Activity $activity): self
+    public function addAppointment(Slot $appointment): self
     {
-        if (!$this->activities->contains($activity)) {
-            $this->activities[] = $activity;
-            $activity->setOwner($this);
+        if (!$this->appointments->contains($appointment)) {
+            $this->appointments[] = $appointment;
         }
 
         return $this;
     }
 
-    public function removeActivity(Activity $activity): self
+    public function removeAppointment(Slot $appointment): self
     {
-        if ($this->activities->removeElement($activity)) {
-            // set the owning side to null (unless already changed)
-            if ($activity->getOwner() === $this) {
-                $activity->setOwner(null);
-            }
-        }
+        $this->appointments->removeElement($appointment);
 
         return $this;
+    }
+
+    public function isInAppointment(Slot $appointment)
+    {
+        if ($this->appointments->contains($appointment)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

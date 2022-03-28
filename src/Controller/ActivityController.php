@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Activity;
 use App\Entity\Coach;
+use App\Entity\Slot;
 use App\Form\ActivityType;
+use App\Form\SlotType;
 use App\Repository\ActivityRepository;
-use App\Repository\CalendarRepository;
+use App\Repository\SlotRepository;
 use App\Service\ControlUpload;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -76,39 +78,55 @@ class ActivityController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="activity_show", methods={"GET"})
+     * @Route("/{id}", name="activity_show", methods={"GET", "POST"})
      */
-    public function show(Activity $activity): Response
+    public function show(Activity $activity, EntityManagerInterface $entityManager, Request $request): Response
     {
+        $slots = $activity->getSlots();
         $user = $this->getUser();
 
-        $calendars = $activity->getActivityRDV();
-        
-        $event = [];
-        try {
-            $event[] = [
-                'id' => $calendars->getId(),
-                'start' => $calendars->getStart()->format('Y-m-d H:i'),
-                'end' => $calendars->getEnd()->format('Y-m-d H:i'),
-                'title' => $calendars->getTitle(),
-                'description' => $calendars->getDescription(),
-                'backgroundColor' => $calendars->getBackgroundColor(),
-                'borderColor' => $calendars->getBorderColor(),
-                'textColor' => $calendars->getTextColor(),
-            ];
-        } catch (\Throwable $th) {
-            //throw $th;
+        $events = [];
+        foreach ($slots as $slot) {
+            try {
+                $events[] = [
+                    'id' => $slot->getId(),
+                    'start' => $slot->getStart()->format('Y-m-d H:i'),
+                    'end' => $slot->getEnd()->format('Y-m-d H:i'),
+                    'title' => $slot->getTitle(),
+                    'description' => $slot->getDescription(),
+                    'backgroundColor' => $slot->getBackgroundColor(),
+                    'borderColor' => $slot->getBorderColor(),
+                    'textColor' => $slot->getTextColor(),
+                ];
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
         }
-        
-        $data = json_encode($event);
+
+        $slot = new Slot();
+        $form = $this->createForm(SlotType::class, $slot);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $slot->setActivity($activity);
+            $entityManager->persist($slot);
+            $entityManager->flush();
+            return $this->redirectToRoute('activity_show', ['id' => $activity->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        // $data = json_encode($event);
 
         $coaches = $activity->getCoaches();
+
+        $appointments = $this->getUser()->getAppointments();
 
         return $this->render('activity/show.html.twig', [
             'activity' => $activity,
             'coaches' => $coaches,
-            'data' => $data,
-            'user' => $user
+            'events' => $events,
+            'user' => $user,
+            'appointment' => $appointments,
+            'form' => $form->createView(),
         ]);
     }
 

@@ -7,9 +7,6 @@
 {% endblock %}
 {% block stylesheets %}
 	{{ parent() }}
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.css">
 {% endblock %}
 {% block body %}
 	<div class="py-16 px-4 md:px-6 2xl:px-0 flex justify-center items-center 2xl:mx-auto 2xl:container">
@@ -40,7 +37,7 @@
 						<p class="mt-8 text-base leading-4 text-primary-dark ">Details</p>
 						<div class="mt-2 flex-col">
 							<div>
-								<p class="border rounded-tl rounded-tr border-gray-300 p-4 w-full text-base leading-4 text-primary-light">{{ activity.road }}</p>
+								<p class="border rounded-tl rounded-td border-gray-300 p-4 w-full text-base leading-4 text-primary-light">{{ activity.road }}</p>
 							</div>
 							<div class="flex-row flex">
 								<p class="border rounded-bl border-gray-300 p-4 w-full text-base leading-4 text-primary-light">{{ activity.zip }}</p>
@@ -69,98 +66,123 @@
 			</div>
 		</div>
 	</div>
+	<pre>
+	{{ dump(events) }}
+</pre>
+
 	<div class="p-8 bg-gray-100 flex flex-col mx-auto w-8/12 rounded-lg">
 		<div class="flex flex-row justify-center items-center mt-6">
-			<div class="mt-20">
-				<div id="calendar-holder"></div>
+			<div class="flow-root">
+				<ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+					{% for event in events %}
+						<li class="py-3 sm:py-4">
+							<div class="flex items-center space-x-4">
+								<div class="flex-1 min-w-0">
+									<p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+										{{ event.title }}
+									</p>
+									<p class="text-sm text-gray-500 truncate dark:text-gray-400">
+										{{ event.description }}
+									</p>
+									<p class="text-sm text-gray-500 truncate dark:text-gray-400">
+										{{ event.start|date("F jS \\a\\t g:ia") }}
+									</p>
+									<p class="text-sm text-gray-500 truncate dark:text-gray-400">
+										{{ event.end|date("F jS \\a\\t g:ia") }}
+									</p>
+									<a href="{{ path('get_app', {'id': event.id}) }}">
+										<i class="bi {{ app.user.isInAppointment(appointment) ? 'bi-heart-fill' : 'bi-heart' }}"></i>
+									</a>
+								</div>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
 			</div>
-
 		</div>
 	</div>
 
-	<div class="flex flex-col mx-auto w-5/12">
-
-		{% if activity.owner.id == user.id %}
-			<button class="bg-quatuor-light text-white rounded-md px-4 py-2 hover:bg-quatuor-dark transition mt-5" onclick="openModal('modal')">Add a new event</button>
-			<a href="{{ path('activity_edit', {'id': activity.id}) }}">
-				<button class="bg-quatuor-light text-white rounded-md px-4 py-2 hover:bg-quatuor-dark mt-5 w-full">
-					<p class="text-base leading-4">
-						Edit
-					</p>
-				</button>
-			</a>
-			<form method="post" action="{{ path('activity_delete', {'id': activity.id}) }}" onsubmit="return confirm('Are you sure you want to delete this activity?');">
-				<button class="bg-quatuor-light text-white rounded-md px-4 py-2 hover:bg-red-700 mt-5 w-full">
-					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ activity.id) }}">Delete
-				</button>
-			</form>
-
-		{% endif %}
-	</div>
-</div>
-
-<div id="modal" class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4">
-	<div
-		class="relative top-40 mx-auto shadow-lg rounded-md bg-white max-w-md">
-		<!-- Modal header -->
-		<div class="flex justify-between items-center bg-ternary-light text-white text-xl rounded-t-md px-4 py-2">
-			<h3>New Event</h3>
-			<button onclick="closeModal()">x</button>
+			<div class="flex flex-col mx-auto w-5/12">
+				{% if activity.owner.id == user.id %}
+					<button class="bg-quatuor-light text-white rounded-md px-4 py-2 hover:bg-quatuor-dark transition mt-5" onclick="openModal('modal')">Add a new event</button>
+					<a href="{{ path('activity_edit', {'id': activity.id}) }}">
+						<button class="bg-quatuor-light text-white rounded-md px-4 py-2 hover:bg-quatuor-dark mt-5 w-full">
+							<p class="text-base leading-4">
+								Edit
+							</p>
+						</button>
+					</a>
+					<form method="post" action="{{ path('activity_delete', {'id': activity.id}) }}" onsubmit="return confirm('Are you sure you want to delete this activity?');">
+						<button class="bg-quatuor-light text-white rounded-md px-4 py-2 hover:bg-red-700 mt-5 w-full">
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ activity.id) }}">Delete
+						</button>
+					</form>
+				{% endif %}
+			</div>
 		</div>
-		<!-- Modal body -->
-		<div class="max-h-screen overflow-y-scroll p-4">
-			{{ render(controller('App\\Controller\\CalendarController::new')) }}
-		</div>
-		<!-- Modal footer -->
-		<div class="px-4 py-2 border-t border-t-gray-500 flex justify-end items-center space-x-4">
-			<button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition " onclick="closeModal()">Close</button>
-		</div>
-	</div>
-{% endblock %}
 
-{% block javascripts %}
-	<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@4.1.0/main.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.js"></script>
-	<script>
-		document.addEventListener('DOMContentLoaded', () => {
-var calendarEl = document.getElementById('calendar-holder');
+		<div id="modal" class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4">
+			<div
+				class="relative top-40 mx-auto shadow-lg rounded-md bg-white max-w-md">
+				<!-- Modal header -->
+				<div class="flex justify-between items-center bg-ternary-light text-white text-xl rounded-t-md px-4 py-2">
+					<h3>New Event</h3>
+					<button onclick="closeModal()">x</button>
+				</div>
+				<!-- Modal body -->
+				<div class="max-h-screen overflow-y-scroll p-4">
+					{% include "slot/_form.html.twig" %}
+				</div>
+				<!-- Modal footer -->
+				<div class="px-4 py-2 border-t border-t-gray-500 flex justify-end items-center space-x-4">
+					<button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition " onclick="closeModal()">Close</button>
+				</div>
+			</div>
+		{% endblock %}
 
-var calendar = new FullCalendar.Calendar(calendarEl, {
-defaultView: 'timeGridWeek',
-editable: false,
-eventResizableFromStart: false,
-events: {{ data|raw }},
-eventSources: [
+		{% block javascripts %}
+			<script>
+
+				const data = new FormData(document.getElementById('activityForm'));
+
+
+const title = document.getElementById('title').value;
+const description = document.getElementById('description').value;
+const start = document.getElementById('start').value;
+const end = document.getElementById('end').value;
+const bgColor = document.getElementById('bgColor').value;
+const textColor = document.getElementById('textColor').value;
+const borderColor = document.getElementById('borderColor').value;
+
+document.getElementById('add').addEventListener('click', function () {
+const text = "Press a button!\nEither OK or Cancel.";
+if (confirm(text) == true) {
+console.log("Created FormData, " + [... data.keys()].length + " keys in data");
+
+console.log("Hello World!");
+
+event.preventDefault();
+}
+});
+
 {
-url: "/fc-load-events",
-method: "POST",
-extraParams: {
-filters: JSON.stringify({})
-},
-failure: () => { // alert("There was an error while fetching FullCalendar!");
+# encodeURIComponent({
+title: title
+}, {
+description: description
+}, {
+start: start
+}, {
+end: end
+}, {
+backgroundColor: bgColor
+}, {
+textColor: textColor
+}, {
+borderColor: borderColor
+}, {activityId: activityId})#
 }
-},
-],
-header: {
-left: 'prev,next today',
-center: 'title',
-right: 'timeGridWeek,timeGridDay'
-},
-plugins: [
-'interaction', 'dayGrid', 'timeGrid'
-],
-// https://fullcalendar.io/docs/plugin-index
-timeZone: 'UTC',
-dateClick: function (info) {
-alert('Clicked on: ' + info.dateStr);
-alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-alert('Current view: ' + info.view.type);
-}
-});
-calendar.render();
-});
+
 
 function openModal(modalId) {
 modal = document.getElementById(modalId)
@@ -171,8 +193,5 @@ function closeModal() {
 modal = document.getElementById('modal')
 modal.classList.add('hidden')
 }
-
-const event = document.getElementsByClassName("fc-day-grid-event");
-console.log(event);
-	</script>
-{% endblock %}
+			</script>
+		{% endblock %}

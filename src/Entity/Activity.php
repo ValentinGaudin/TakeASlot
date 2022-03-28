@@ -80,20 +80,20 @@ class Activity
     private $coaches;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Calendar::class, inversedBy="activities")
-     */
-    private $activityRDV;
-
-    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="activities")
      */
     private $owner;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Slot::class, mappedBy="activity")
+     */
+    private $slots;
 
 
     public function __construct()
     {
         $this->coaches = new ArrayCollection();
-        $this->appointments = new ArrayCollection();
+        $this->slots = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -261,18 +261,6 @@ class Activity
         return $this;
     }
 
-    public function getActivityRDV(): ?Calendar
-    {
-        return $this->activityRDV;
-    }
-
-    public function setActivityRDV(?Calendar $activityRDV): self
-    {
-        $this->activityRDV = $activityRDV;
-
-        return $this;
-    }
-
     public function getOwner(): ?User
     {
         return $this->owner;
@@ -286,11 +274,33 @@ class Activity
     }
 
     /**
-     * @return Collection|Appointment[]
+     * @return Collection|Slot[]
      */
-    public function getAppointments(): Collection
+    public function getSlots(): Collection
     {
-        return $this->appointments;
+        return $this->slots;
+    }
+
+    public function addSlot(Slot $slot): self
+    {
+        if (!$this->slots->contains($slot)) {
+            $this->slots[] = $slot;
+            $slot->setActivity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSlot(Slot $slot): self
+    {
+        if ($this->slots->removeElement($slot)) {
+            // set the owning side to null (unless already changed)
+            if ($slot->getActivity() === $this) {
+                $slot->setActivity(null);
+            }
+        }
+
+        return $this;
     }
 
 }

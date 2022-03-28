@@ -2,16 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\CalendarRepository;
+use App\Repository\SlotRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
 
 /**
- * @ORM\Entity(repositoryClass=CalendarRepository::class)
+ * @ORM\Entity(repositoryClass=SlotRepository::class)
  */
-class Calendar
+class Slot
 {
     /**
      * @ORM\Id
@@ -61,14 +61,21 @@ class Calendar
     private Collection $users;
 
     /**
-     * @ORM\OneToMany(targetEntity=Activity::class, mappedBy="activityRDV")
+     * @ORM\ManyToOne(targetEntity=Activity::class, inversedBy="slots")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private Collection $activities;
+    private $activity;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="appointments")
+     */
+    private $userAppointment;
 
     public function __construct()
     {
         $this->users = new ArrayCollection();
-        $this->activities = new ArrayCollection();
+        $this->appointments = new ArrayCollection();
+        $this->userAppointment = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -168,55 +175,43 @@ class Calendar
         return $this->users;
     }
 
-    public function addUser(User $user): self
+    public function getActivity(): ?Activity
     {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->setUserRDV($this);
-        }
-
-        return $this;
+        return $this->activity;
     }
 
-    public function removeUser(User $user): self
+    public function setActivity(?Activity $activity): self
     {
-        if ($this->users->removeElement($user)) {
-            // set the owning side to null (unless already changed)
-            if ($user->getUserRDV() === $this) {
-                $user->setUserRDV(null);
-            }
-        }
+        $this->activity = $activity;
 
         return $this;
     }
 
     /**
-     * @return Collection|Activity[]
+     * @return Collection<int, User>
      */
-    public function getActivities(): Collection
+    public function getUserAppointment(): Collection
     {
-        return $this->activities;
+        return $this->userAppointment;
     }
 
-    public function addActivity(Activity $activity): self
+    public function addUserAppointment(User $userAppointment): self
     {
-        if (!$this->activities->contains($activity)) {
-            $this->activities[] = $activity;
-            $activity->setActivityRDV($this);
+        if (!$this->userAppointment->contains($userAppointment)) {
+            $this->userAppointment[] = $userAppointment;
+            $userAppointment->addAppointment($this);
         }
 
         return $this;
     }
 
-    public function removeActivity(Activity $activity): self
+    public function removeUserAppointment(User $userAppointment): self
     {
-        if ($this->activities->removeElement($activity)) {
-            // set the owning side to null (unless already changed)
-            if ($activity->getActivityRDV() === $this) {
-                $activity->setActivityRDV(null);
-            }
+        if ($this->userAppointment->removeElement($userAppointment)) {
+            $userAppointment->removeAppointment($this);
         }
 
         return $this;
     }
+
 }

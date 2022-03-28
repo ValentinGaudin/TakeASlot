@@ -46,4 +46,4 @@ security:
     - { path: ^/profil, roles: ROLE_USER }
     - { path: ^/activity, roles: ROLE_USER }
     - { path: ^/coach, roles: ROLE_ADMIN }
-    - { path: ^/calendar, roles: ROLE_ADMIN }
+    - { path: ^/calendar, roles: ROLE_CONTRIBUTOR }
