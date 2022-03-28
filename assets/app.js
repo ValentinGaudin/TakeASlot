@@ -12,11 +12,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 // start the Stimulus application
 import './bootstrap';
 
-import AOS from 'aos';
 
-import 'aos/dist/aos.css';
-
-AOS.init();
 
 // document.addEventListener("DOMContentLoaded", () => {
 //     var calendarEl = document.getElementById("calendar-holder");

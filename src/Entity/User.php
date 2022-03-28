@@ -232,11 +232,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function isInAppointment(Slot $appointment)
     {
-        if ($this->appointments->contains($appointment)) {
-            return true;
-        } else {
-            return false;
-        }
+        return $this->appointments->contains($appointment); 
     }
 
 }

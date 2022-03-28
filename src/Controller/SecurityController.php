@@ -60,8 +60,8 @@ class SecurityController extends AbstractController
         }
         $entityManager->flush();
 
-        return $this->render('login/profil.html.twig', [
-            'appointment' => $appointment,
+        return $this->json([
+            'isInAppointment' => $this->getUser()->isInAppointment($appointment)
         ]);
     }
 

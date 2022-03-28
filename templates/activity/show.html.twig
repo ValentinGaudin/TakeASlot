@@ -67,8 +67,12 @@
 		</div>
 	</div>
 	<pre>
+		{{ dump(app.user) }}
+	</pre>
+	<pre>
 	{{ dump(events) }}
 </pre>
+
 
 	<div class="p-8 bg-gray-100 flex flex-col mx-auto w-8/12 rounded-lg">
 		<div class="flex flex-row justify-center items-center mt-6">
@@ -90,8 +94,10 @@
 									<p class="text-sm text-gray-500 truncate dark:text-gray-400">
 										{{ event.end|date("F jS \\a\\t g:ia") }}
 									</p>
-									<a href="{{ path('get_app', {'id': event.id}) }}">
-										<i class="bi {{ app.user.isInAppointment(appointment) ? 'bi-heart-fill' : 'bi-heart' }}"></i>
+									
+									<a id="watchlist" href="{{ path('get_app', {'id': event.id}) }}" >
+									
+										<i></i>
 									</a>
 								</div>
 							</div>
@@ -143,49 +149,33 @@
 		{% block javascripts %}
 			<script>
 
-				const data = new FormData(document.getElementById('activityForm'));
+const watchlist = document.querySelector("#watchlist")
+watchlist.addEventListener('click', addToWatchlist);
+async function addToWatchlist(e) {
+    e.preventDefault();
+    // Get the link object you click in the DOM
+    let watchlistLink = event.currentTarget;
+    let link = watchlist.href;
+    // Send an HTTP request with fetch to the URI defined in the href
+    const res = await fetch(link)
+	const appointment = await res.json()
 
-
-const title = document.getElementById('title').value;
-const description = document.getElementById('description').value;
-const start = document.getElementById('start').value;
-const end = document.getElementById('end').value;
-const bgColor = document.getElementById('bgColor').value;
-const textColor = document.getElementById('textColor').value;
-const borderColor = document.getElementById('borderColor').value;
-
-document.getElementById('add').addEventListener('click', function () {
-const text = "Press a button!\nEither OK or Cancel.";
-if (confirm(text) == true) {
-console.log("Created FormData, " + [... data.keys()].length + " keys in data");
-
-console.log("Hello World!");
-
-event.preventDefault();
-}
-});
-
-{
-# encodeURIComponent({
-title: title
-}, {
-description: description
-}, {
-start: start
-}, {
-end: end
-}, {
-backgroundColor: bgColor
-}, {
-textColor: textColor
-}, {
-borderColor: borderColor
-}, {activityId: activityId})#
+    // Then update the icon
+        .then(async function(res) {
+            let watchlistIcon = watchlistLink.firstElementChild;
+            if (res.isInWatchlist) {
+                watchlistIcon.classList.remove('bi-heart'); // Remove the .bi-heart (empty heart) from classes in <i> element
+                watchlistIcon.classList.add('bi-heart-fill'); // Add the .bi-heart-fill (full heart) from classes in <i> element
+            } else {
+                watchlistIcon.classList.remove('bi-heart-fill'); // Remove the .bi-heart-fill (full heart) from classes in <i> element
+                watchlistIcon.classList.add('bi-heart'); // Add the .bi-heart (empty heart) from classes in <i> element
+            }
+        });
 }
 
 
 function openModal(modalId) {
-modal = document.getElementById(modalId)
+modal = document.getElementById('modal')
 modal.classList.remove('hidden')
 }
 

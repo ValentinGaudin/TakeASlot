@@ -11,6 +11,7 @@ use App\Repository\ActivityRepository;
 use App\Repository\SlotRepository;
 use App\Service\ControlUpload;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -78,10 +79,11 @@ class ActivityController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="activity_show", methods={"GET", "POST"})
+     * @Route("/{id}", name="activity_show", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function show(Activity $activity, EntityManagerInterface $entityManager, Request $request): Response
     {
+        $coaches = $activity->getCoaches();
         $slots = $activity->getSlots();
         $user = $this->getUser();
 
@@ -116,16 +118,12 @@ class ActivityController extends AbstractController
 
         // $data = json_encode($event);
 
-        $coaches = $activity->getCoaches();
-
-        $appointments = $this->getUser()->getAppointments();
-
         return $this->render('activity/show.html.twig', [
             'activity' => $activity,
             'coaches' => $coaches,
             'events' => $events,
+            //'appointment' => $appointment,
             'user' => $user,
-            'appointment' => $appointments,
             'form' => $form->createView(),
         ]);
     }
